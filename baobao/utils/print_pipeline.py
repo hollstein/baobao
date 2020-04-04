@@ -1,5 +1,5 @@
 from typing import Dict
-from asciitree.drawing import BoxStyle, BOX_DOUBLE, BOX_BLANK
+from asciitree.drawing import BoxStyle, BOX_DOUBLE
 from asciitree import LeftAligned
 from collections import OrderedDict as OD
 
