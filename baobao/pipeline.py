@@ -1,10 +1,28 @@
 from dataclasses import dataclass
 from copy import copy
-import pandas as pd
 from typing import Iterable, Union, Callable, Optional
 from functools import singledispatch
-from joblib import Memory
 import logging
+from time import time
+from multiprocessing.pool import ApplyResult
+
+#######################
+# optional dependencies
+#######################
+
+try:
+    from joblib import Memory
+except ImportError:
+    logging.info("baobao: Missing joblib optional dependency, Step memoization will not work.")
+
+    class Memory:
+        pass
+
+try:
+    import pandas as pd
+except ImportError:
+    class pd:
+        DataFrame = None
 
 
 @dataclass
@@ -68,7 +86,7 @@ class Step:
     def _run_pipelines_for_args_kwargs(self):
 
         def _run_if_pipeline(inp):
-            return inp.run() if isinstance(inp, Pipeline) else inp
+            return inp.get() if any([isinstance(inp, cl) for cl in (Pipeline, ApplyResult)]) else inp
 
         self.args = [_run_if_pipeline(arg) for arg in self.args]
         self.kwargs = {k: _run_if_pipeline(v) for k, v in self.kwargs.items()}
@@ -96,8 +114,12 @@ class Pipeline:
     def run(self):
         return self.__call__()
 
+    def get(self):
+        return self.__call__()
+
     def __call__(self):
 
+        t0 = time()
         logging.info(f"{self.opts.pipeline_prefix}{str(self)}")
 
         self.pipeline = [step.set_options(self.opts) for step in self.pipeline]
@@ -106,7 +128,7 @@ class Pipeline:
             for step in self.pipeline:
                 step.push_options()
 
-                # if memory given and root_node is callable, replace by memorized version
+        # if memory given and root_node is callable, replace by memorized version
         root_node = (
             self.opts.memory.cache(self.root_node)
             if callable(self.root_node) and self.opts.memory is not None else self.root_node
@@ -117,6 +139,7 @@ class Pipeline:
         for ii, step in enumerate(self.pipeline):
             logging.info(f"{self.opts.step_prefix}{str(step)}")
             df = step.run(df)
+        logging.info(f"{self.opts.pipeline_prefix}Complete pipeline after {(time()-t0):.2f}s")
 
         return df
 
