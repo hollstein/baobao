@@ -1,4 +1,4 @@
-![image.png](notebooks/baobao_logo.png)
+![image.png](https://github.com/hollstein/baobao/raw/dev/notebooks/baobao_logo.png)
 
 Baobao is a small library that attempts writing and maintaining data pipelines easier. It was written with Pandas in mind, but is not limited to it or even depends on it. It's AIP closely models Pandas pipe functionality.
 
