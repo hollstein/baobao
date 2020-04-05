@@ -27,6 +27,13 @@ except ImportError:
 
 @dataclass
 class PipelineOpts:
+    """
+    :param memory: Instance of joblib.Memory or anything that implements its API\n
+    :param inplyce: True / False, if true the input is transformed, if false a copy is produced\n
+    :push_options: True / False, if true, options of root pipeline are applied to all contained pipelines\n
+    :param step_prefix: String to prefix steps, is repeated depending on depth within the complete pipeline\n
+    :param pipeline_prefix:  String to prefix pipelines, is repeated depending on depth within the complete pipeline\n
+    """
     memory: Optional[Memory] = None
     in_place: bool = True
     push_options: bool = False
@@ -39,8 +46,16 @@ def _run(func: Callable, df: pd.DataFrame, *args, **kwargs):
 
 
 class Step:
+    """
+        :param func: A function or callable that takes the result of a previous pipeline stet as
+        input and transforms it as output of this step\n
+        :param args: Positional arguments passed to func when called by pipeline\n
+        :param kwargs: Keyword arguments passed to func when called by pipeline\n
+
+    """
 
     def __init__(self, func: Callable, *args, **kwargs):
+
         self.func = func
         self.args = args
         self.kwargs = kwargs
@@ -99,6 +114,12 @@ class Step:
 
 
 class Pipeline:
+    """
+    :param root_node: Callable or initial input data to run the pipeline\n
+    :param pipeline: Iterable composed of baobao.Step instances\n
+    :param opts: Instance of baobao.PipelineOpts\n
+    """
+
     def __init__(
             self, root_node: Union[pd.DataFrame, Callable], pipeline: Iterable[Step] = tuple(),
             opts: PipelineOpts = PipelineOpts()
