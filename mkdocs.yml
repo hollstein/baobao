@@ -1,0 +1,21 @@
+site_name: Baobao
+theme:
+  name: "material"
+
+
+nav:
+    - Getting Started: index.md
+    - Usage: usage.md
+
+
+
+plugins:
+  - search
+
+markdown_extensions:
+  - codehilite
+  - mkautodoc
+  - admonition
+
+extra_css:
+    - css/autodoc.css

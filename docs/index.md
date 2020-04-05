@@ -7,7 +7,7 @@ Design principles are:
 - Minimal dependencies
 - Additional functionality is optional
 
-Install with pip: `pip install baobao`. Further documentation: https://hollstein.github.io/baobao/ 
+Install with pip: `pip install baobao`.
 
 Pipelines can be build like this:
 
