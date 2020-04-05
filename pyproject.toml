@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "baobao"
+version = "0.2.4"
+description = ""
+license = "MIT"
+authors = ["André Hollstein <andre@dr-hollstein.de>"]
+readme = "Readme.md"
+repository = "https://github.com/hollstein/baobao"
+homepage = "https://hollstein.github.io/baobao/"
+documentation = "https://hollstein.github.io/baobao/"
+
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
