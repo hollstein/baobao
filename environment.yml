@@ -3,5 +3,7 @@ dependencies:
   - python
   - pandas
   - joblib
+  - pip
   - pip:
     - baobao
+    - asciitree
