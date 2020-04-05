@@ -357,26 +357,39 @@
 <h3 id="pipeline">Pipeline</h3>
 <div class="autodoc">
 <div class="autodoc-signature"><em>class </em><code>baobao.<strong>Pipeline</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">root_node</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">pipeline=()</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">opts=PipelineOpts(memory=None, in_place=True, push_options=False)</em><span class="autodoc-punctuation">)</span></div>
-<div class="autodoc-docstring"></div>
+<div class="autodoc-docstring"><p>:param root_node: Callable or initial input data to run the pipeline</p>
+<p>:param pipeline: Iterable composed of baobao.Step instances</p>
+<p>:param opts: Instance of baobao.PipelineOpts</p></div>
 <div class="autodoc-members">
 <div class="autodoc-signature"><code><strong>run</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">self</em><span class="autodoc-punctuation">)</span></div>
 <div class="autodoc-docstring"></div>
 </div>
 </div>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>baobao.<strong>PipelineOpts</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">memory=None</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">in_place=True</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">push_options=False</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>:param memory: Instance of joblib.Memory or anything that implements its API</p>
+<p>:param inplyce: True / False, if true the input is transformed, if false a copy is produced</p>
+<p>:push_options: True / False, if true, options of root pipeline are applied to all contained pipelines</p>
+<p>:param step_prefix: String to prefix steps, is repeated depending on depth within the complete pipeline</p>
+<p>:param pipeline_prefix:  String to prefix pipelines, is repeated depending on depth within the complete pipeline</p></div>
+</div>
 <h3 id="step">Step</h3>
 <div class="autodoc">
 <div class="autodoc-signature"><em>class </em><code>baobao.<strong>Step</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">func</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">*args</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**kwargs</em><span class="autodoc-punctuation">)</span></div>
-<div class="autodoc-docstring"><p>:param func: asdasdas</p>
-<p>:param args: asdsadasd</p>
-<p>:param kwargs: asdsadasdasd</p></div>
+<div class="autodoc-docstring"><p>:param func: A function or callable that takes the result of a previous pipeline stet as
+input and transforms it as output of this step</p>
+<p>:param args: Positional arguments passed to func when called by pipeline</p>
+<p>:param kwargs: Keyword arguments passed to func when called by pipeline</p></div>
 </div>
 <h2 id="utils">Utils</h2>
 <h3 id="print-pipeline">Print Pipeline</h3>
 <div class="autodoc">
 <div class="autodoc-signature"><code>baobao.utils.<strong>print_pipeline</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">pipeline</em><span class="autodoc-punctuation">)</span></div>
-<div class="autodoc-docstring"><p>asdsadasdas</p>
-<p>:param pipeline: adasdasdasd</p>
-<p>:return: None</p></div>
+<div class="autodoc-docstring"></div>
+</div>
+<div class="autodoc">
+<div class="autodoc-signature"><code>baobao.utils.<strong>run_parallel</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">pipeline</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">n_jobs=2</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"></div>
 </div>
                 
                   
